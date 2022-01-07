@@ -7,37 +7,50 @@ import sys
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
+from PyQt5.uic import *
 import cv2
 
 
-class MainWindow(QWidget):
+class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
         
-        self.VBL = QVBoxLayout()
+        loadUi("../ui/mainWindow.ui",self)
         
-        self.feedLabel = QLabel()
-        self.VBL.addWidget(self.feedLabel)
+        ##define
+        self.stopBtn = self.findChild(QPushButton, "stopPushButton")
+        self.startBtn = self.findChild(QPushButton, "startPushButton")
+        self.detectionsListView = self.findChild(QListView, "detectionDetailListView")
+        self.detectionDetailListView = self.findChild(QListView, "detectionDetailListView")
+        self.streamLabel = self.findChild(QLabel, "streamLabel")
         
-        self.cancelBTN = QPushButton("Cancel")
-        self.cancelBTN.clicked.connect(self.cancelFeed)
-        self.VBL.addWidget(self.cancelBTN)
+        self.stopBtn.clicked.connect(self.stopFeed)
+        self.startBtn.clicked.connect(self.startFeed)
+#        self.VBL = QVBoxLayout()
+        
+ #       self.feedLabel = QLabel()
+  #      self.VBL.addWidget(self.feedLabel)
+        
+   #     self.cancelBtn = QPushButton("Cancel")
+        
+    #    self.VBL.addWidget(self.cancelBTN)
         
         self.worker1 = Worker1()
-        self.worker1.start()
+        
         self.worker1.ImageUpdate.connect(self.imageUpdateSlot)
-        self.setLayout(self.VBL)
+     #   self.setLayout(self.VBL)
     
     def imageUpdateSlot(self,img):
-        self.feedLabel.setPixmap(QPixmap.fromImage(img))
-    
-    def cancelFeed(self):
-        self.Worker1.stop()
+        self.streamLabel.setPixmap(QPixmap.fromImage(img))
+    def startFeed(self):
+        self.worker1.start()
+    def stopFeed(self):
+        self.worker1.stop()
 class Worker1(QThread):
     ImageUpdate = pyqtSignal(QImage)
     def run(self):
         self.ThreadActive = True
-        capture = cv2.VideoCapture(0) # 0 is the system webcam
+        capture = cv2.VideoCapture(0, cv2.CAP_DSHOW) # 0 is the system webcam
         while self.ThreadActive:
             ret, frame = capture.read()
             if ret:
@@ -46,7 +59,8 @@ class Worker1(QThread):
                 convertToQtFormat = QImage(flipped_image.data, flipped_image.shape[1],flipped_image.shape[0], QImage.Format_RGB888)
                 pic = convertToQtFormat.scaled(720,480, Qt.KeepAspectRatio)
                 self.ImageUpdate.emit(pic) #sends a message to mainWindow class
-    def stop():
+        capture.release()
+    def stop(self):
         self.ThreadActive = False
         self.quit()
 if __name__ == "__main__":

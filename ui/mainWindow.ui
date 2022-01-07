@@ -23,8 +23,8 @@
    <widget class="QCheckBox" name="checkBox">
     <property name="geometry">
      <rect>
-      <x>290</x>
-      <y>560</y>
+      <x>540</x>
+      <y>550</y>
       <width>81</width>
       <height>20</height>
      </rect>
@@ -33,11 +33,11 @@
      <string>Deneme</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="stopPushButton">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>540</y>
+      <x>290</x>
+      <y>530</y>
       <width>231</width>
       <height>51</height>
      </rect>
@@ -51,7 +51,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Start</string>
+     <string>Stop</string>
     </property>
    </widget>
    <widget class="QWidget" name="verticalLayoutWidget">
@@ -105,14 +105,38 @@
      </item>
     </layout>
    </widget>
-   <widget class="QGraphicsView" name="graphicsView">
+   <widget class="QLabel" name="streamLabel">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>10</y>
+      <x>40</x>
+      <y>30</y>
       <width>720</width>
       <height>480</height>
      </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="startPushButton">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>530</y>
+      <width>231</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Bahnschrift</family>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Start</string>
     </property>
    </widget>
   </widget>

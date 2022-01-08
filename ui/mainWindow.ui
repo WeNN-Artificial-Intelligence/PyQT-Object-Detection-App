@@ -6,12 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1174</width>
-    <height>785</height>
+    <width>1258</width>
+    <height>933</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(8, 147, 117);
+color: rgb(255,255,255);
+border-color: rgb(255,255,255);
+border-width : 1.2px;
+border-style:inset;</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="sizePolicy">
@@ -20,24 +27,30 @@
      <verstretch>0</verstretch>
     </sizepolicy>
    </property>
-   <widget class="QCheckBox" name="checkBox">
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <widget class="QCheckBox" name="NMSCheckBox">
     <property name="geometry">
      <rect>
-      <x>540</x>
-      <y>680</y>
-      <width>81</width>
+      <x>70</x>
+      <y>765</y>
+      <width>161</width>
       <height>20</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">border: none</string>
+    </property>
     <property name="text">
-     <string>Deneme</string>
+     <string>Non-Max Surpression</string>
     </property>
    </widget>
    <widget class="QPushButton" name="stopPushButton">
     <property name="geometry">
      <rect>
-      <x>290</x>
-      <y>660</y>
+      <x>670</x>
+      <y>715</y>
       <width>231</width>
       <height>51</height>
      </rect>
@@ -54,64 +67,13 @@
      <string>Stop</string>
     </property>
    </widget>
-   <widget class="QWidget" name="verticalLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>900</x>
-      <y>10</y>
-      <width>261</width>
-      <height>641</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout" stretch="60,10,0">
-     <property name="spacing">
-      <number>5</number>
-     </property>
-     <item>
-      <widget class="QListView" name="detectionsListView">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="showDetailsButton">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>Show details</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QListView" name="detectionDetailListView">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
    <widget class="QLabel" name="streamLabel">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>30</y>
+      <x>70</x>
+      <y>115</y>
       <width>832</width>
-      <height>561</height>
+      <height>570</height>
      </rect>
     </property>
     <property name="text">
@@ -121,8 +83,8 @@
    <widget class="QPushButton" name="startPushButton">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>660</y>
+      <x>420</x>
+      <y>715</y>
       <width>231</width>
       <height>51</height>
      </rect>
@@ -139,14 +101,155 @@
      <string>Start</string>
     </property>
    </widget>
+   <widget class="QComboBox" name="algortihmComboBox">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>735</y>
+      <width>301</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>710</y>
+      <width>131</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Choose an algorithm</string>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBox">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>10</y>
+      <width>291</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Webcam or video frames</string>
+    </property>
+    <widget class="QRadioButton" name="radioButton">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>20</y>
+       <width>101</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Webcam</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="radioButton_2">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>50</y>
+       <width>101</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Video</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>50</y>
+       <width>101</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Load Video</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QListView" name="detectionsListView">
+    <property name="geometry">
+     <rect>
+      <x>931</x>
+      <y>116</y>
+      <width>249</width>
+      <height>329</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="showDetailsButton">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>930</x>
+      <y>455</y>
+      <width>90</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>90</width>
+      <height>40</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-width: 1.8px</string>
+    </property>
+    <property name="text">
+     <string>Show details</string>
+    </property>
+   </widget>
+   <widget class="QListView" name="detectionDetailListView">
+    <property name="geometry">
+     <rect>
+      <x>931</x>
+      <y>505</y>
+      <width>249</width>
+      <height>180</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1174</width>
-     <height>26</height>
+     <width>1258</width>
+     <height>28</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

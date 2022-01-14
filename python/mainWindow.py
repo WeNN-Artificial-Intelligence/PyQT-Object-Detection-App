@@ -10,8 +10,10 @@ from PyQt5.QtCore import *
 from PyQt5.uic import *
 import cv2
 
+from object_detection.YOLOv5.YOLOv5 import *
 from object_detection.YOLOv3.YOLOv3_416.YOLOv3 import *
 
+from LiveFrameThread import *
 class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
@@ -24,42 +26,35 @@ class MainWindow(QMainWindow):
         self.detectionsListView = self.findChild(QListView, "detectionDetailListView")
         self.detectionDetailListView = self.findChild(QListView, "detectionDetailListView")
         self.streamLabel = self.findChild(QLabel, "streamLabel")
+        self.modelComboBox = self.findChild(QComboBox, "modelComboBox")
         
         self.stopBtn.clicked.connect(self.stopFeed)
         self.startBtn.clicked.connect(self.startFeed)
 
-        self.worker1 = Worker1()
+        self.liveFrameThread = LiveFrameThread()
         
-        self.worker1.ImageUpdate.connect(self.imageUpdateSlot)
+        self.liveFrameThread.ImageUpdate.connect(self.imageUpdateSlot)
     
     def imageUpdateSlot(self,img):
         self.streamLabel.setPixmap(QPixmap.fromImage(img))
         
     def startFeed(self):
-        self.worker1.start()
+        selectedModel = self.modelComboBox.currentText()
+        if(selectedModel == "YOLOv3"):
+            self.liveFrameThread.methodInstance = YOLOv3()
+            print("annen")
+        elif (selectedModel == "YOLOv5"):
+            self.liveFrameThread.methodInstance = YOLOv5()
+            print("bab")
+        elif(selectedModel == "YOLOv5 UYZ Custom Model"):
+            self.liveFrameThread.methodInstance = YOLOv5()
+            print("wwe")
+        self.liveFrameThread.start()
         
     def stopFeed(self):
-        self.worker1.stop()
+        self.liveFrameThread.stop()
         
-class Worker1(QThread):
-    ImageUpdate = pyqtSignal(QImage)
-    yoloInstance = YOLOv3()
-    def run(self):
-        self.ThreadActive = True
-        capture = cv2.VideoCapture(0, cv2.CAP_DSHOW) # 0 is the system webcam
-        while self.ThreadActive:
-            ret, frame = capture.read()
-            if ret:
-                frame = cv2.flip(frame,1)
-                frame, res = self.yoloInstance.detectObjects(frame)
-                image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-                convertToQtFormat = QImage(image.data, image.shape[1],image.shape[0], QImage.Format_RGB888)
-                pic = convertToQtFormat.scaled(832,560, Qt.KeepAspectRatio)
-                self.ImageUpdate.emit(pic) #sends a message to mainWindow class
-        capture.release()
-    def stop(self):
-        self.ThreadActive = False
-        self.quit()
+
         
 if __name__ == "__main__":
     App = QApplication(sys.argv)

@@ -42,13 +42,10 @@ class MainWindow(QMainWindow):
         selectedModel = self.modelComboBox.currentText()
         if(selectedModel == "YOLOv3"):
             self.liveFrameThread.methodInstance = YOLOv3()
-            print("annen")
         elif (selectedModel == "YOLOv5"):
             self.liveFrameThread.methodInstance = YOLOv5()
-            print("bab")
         elif(selectedModel == "YOLOv5 UYZ Custom Model"):
             self.liveFrameThread.methodInstance = YOLOv5()
-            print("wwe")
         self.liveFrameThread.start()
         
     def stopFeed(self):
